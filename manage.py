@@ -1,10 +1,12 @@
-from app import delete_book, all_books, change_status, search_book, add_book
+from app import all_books, change_status, delete_book, add_book, search_book
+from data_cquisition import get_id, get_status, get_year, get_author, get_title, \
+    get_criterion
 
 
 def select_action():
     """Выберать действие"""
-    try:
-        while True:
+    while True:
+        try:
             print("\nВыберите действие:")
             print("1. Просмотреть список книг")
             print("2. Поиск книги")
@@ -16,28 +18,39 @@ def select_action():
             choice = int(input("Введите номер действия (1/2/3/4/5/6): "))
             if choice == 1:
                 print(all_books())
+
             elif choice == 2:
-                criterion = input("Введите критерий по которому будите искать книгу(название,автор,год): ")
-                meaning = input("Введите значение: ")
+                criterion = get_criterion()
+                if criterion == 1:
+                    meaning = get_title()
+                elif criterion == 2:
+                    meaning = get_author()
+                elif criterion == 3:
+                    meaning = get_year()
                 print(search_book(criterion, meaning))
+
             elif choice == 3:
-                title = input("Введите название книги: ")
-                author = input("Введите автора книги: ")
-                year = input("Введите год публикации: ")
-                print("Книга добавлена", add_book(title, author, year))
+                title = get_title()
+                author = get_author()
+                year = get_year()
+                result = add_book(title, author, year)
+                print("Книга добавлена:", result)
+
             elif choice == 4:
-                id_book = int(input("Введите ID книги, у которой хотите поменять статус:"))
-                status = input("Укажите какой у книги статус(в наличии/выдана):")
-                print(change_status(id_book, status))
+                id_book = get_id()
+                status_book = get_status()
+                print(change_status(id_book, status_book))
+
             elif choice == 5:
-                id_book = int(input("Введите ID книги, которую хотите удалить:"))
+                id_book = get_id()
                 print(delete_book(id_book))
+
             elif choice == 6:
                 break
             else:
-                print("Указано не верное значение")
-    except ValueError:
-        print("Указано не верное значение")
+                print("Введите 1/2/3/4/5 или 6.")
+        except ValueError:
+            print("Введите 1/2/3/4/5 или 6.")
 
 
 if __name__ == '__main__':

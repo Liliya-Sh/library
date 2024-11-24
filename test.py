@@ -74,14 +74,14 @@ class Testlibrary(unittest.TestCase):
                   'Год издания: 2022\n'
                   'Статус: в наличии')
 
-        actual_result = search_book('автор', 'Элизабет Гилберт')
+        actual_result = search_book(2, 'Элизабет Гилберт')
         self.assertEqual(actual_result, book)
 
     def test_search_book_title(self):
         """Тестируем функцию search_book(поиск книги по названию)"""
         book = ('Книги с такими данными нет')
 
-        actual_result = search_book('название', 'Серебристая бухта')
+        actual_result = search_book(1, 'Серебристая бухта')
         self.assertEqual(actual_result, book)
 
     def test_search_book_year(self):
@@ -92,7 +92,7 @@ class Testlibrary(unittest.TestCase):
                   'Год издания: 2022\n'
                   'Статус: в наличии')
 
-        actual_result = search_book('год', '2022')
+        actual_result = search_book(3, '2022')
         self.assertEqual(actual_result, book)
 
 
